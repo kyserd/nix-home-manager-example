@@ -9,7 +9,6 @@ Based on [this amazing guide](https://github.com/Evertras/simple-homemanager) by
 1. Install Nix (you may need to install curl)
 ```
 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
-
 ````
 
 2. Open a new shell and run:
