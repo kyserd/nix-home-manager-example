@@ -3,6 +3,10 @@
   home = {
     packages = with pkgs; [
       hello
+      helix
+      home-manager
+      just
+      stow
     ];
 
     # This needs to be set to your username
@@ -12,5 +16,5 @@
     # Don't ever change this
     #
     stateVersion = "25.11";
-  }
+  };
 }
