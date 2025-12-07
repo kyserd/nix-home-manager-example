@@ -2,14 +2,13 @@
 
 SCRIPT_DIR=$(dirname "$0")
 
-# This sucks, but guix 1.4.0 doesn't support redirects, so we must
-# first update to a newer version and only then can we use
-# the new remote
-guix pull
+# Install nix
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
 
-GUIX_PROFILE=`guix time-machine -C ${SCRIPT_DIR}/../.config/guix/channels-lock.scm`
-GUIX="${GUIX_PROFILE}/bin/guix"
+# Install home-manager
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager
+nix-channel --update
 
-$GUIX pull -C ${SCRIPT_DIR}/../.config/guix/channels-lock.scm --allow-downgrades
+source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 
-guix shell --check just stow -- just --justfile ${SCRIPT_DIR}/../justfile home-build home-switch stow
+nix-shell -p stow just -- just --justfile ${SCRIPT_DIR}/../justfile stow home-switch 
